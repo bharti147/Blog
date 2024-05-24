@@ -4,8 +4,7 @@ function App() {
 
   return (
    <>
-    <h1>Blog site in appwrite
-    </h1>
+    <h1> Blog site in appwrite </h1>
    </>
   )
 }
