@@ -1,3 +1,5 @@
+//for authentication services
+
 import {Client, Account, ID} from appwrite;
 import conf from '../conf/conf.js'
 
