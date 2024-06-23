@@ -3,7 +3,7 @@ import './App.css'
 import { useDispatch } from 'react-redux'
 import authService from './appwrite/auth.js'
 import { login,logout } from './store/authSlice'
-import {Header,Footer} from './components/index.js'
+import {Header,Footer,Select} from './components/index.js'
 
 
 function App() {
@@ -30,7 +30,7 @@ function App() {
         <Header/>
         <main>
           {/* <Outlet/> */}
-          <h1>Todo: {`${loading}`}</h1>
+        <h1> Hello</h1>
         </main>
         <Footer/>
       </div>
