@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useSelector} from "react-redux";
 import appwriteService from "../../appwrite/config"
+import service from "../../appwrite/config";
 // import store from '../../store/store'
 
 function PostForm() {
@@ -31,8 +32,29 @@ function PostForm() {
   //3 one submit function- it will contain logic of both creation & updation of post.
   //LOGIC- if post is there, then updation happens, & if post is not there, then creation happens(will use if-else block)
   // if user has submitted, means it has passed the data, so now we've 2 cases: if post is available- update,        if post is unavailable- create,
-  const submit = ()=>{
 
+  const submit = async (data) => {
+       // updation code (if post is available, then we'll update existing post)
+    if (post) {
+        const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
+
+        if (file) {
+            appwriteService.deleteFile(post.featuredImage);
+        }
+
+        const dbPost = await appwriteService.updatePost(post.$id, {
+            ...data,
+            featuredImage: file ? file.$id : undefined,
+        });
+
+        if (dbPost) {
+            navigate(`/post/${dbPost.$id}`);
+        }
+    }
+    // creation code (if post is not available, then we'll create a new post)
+    else{
+
+    }
   }
 
   return (
