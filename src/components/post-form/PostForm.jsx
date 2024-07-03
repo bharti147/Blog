@@ -1,6 +1,6 @@
 //1 import all important things: all hooks(useForm, useNavigate, useSelector), all the small input components of this big form, service from appwrite for using database service(create&update)
 
-import React from "react";
+import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useSelector} from "react-redux";
@@ -53,9 +53,44 @@ function PostForm() {
     }
     // creation code (if post is not available, then we'll create a new post)
     else{
+      const file = data.image[0]? await appwriteService.uploadFile(data.image[0]): null
+      
+      //file upload done,but we'll need this image id for create account method. 
+      if(file){ // if file is uploaded correctly
+      const fileId = file.$id
+      data.featuredImage = fileId 
+      
 
+      const dbPost = await service.createPost({
+        ...data,
+        userId: userData.$id
+      })
+
+      if(dbPost){
+        navigate(`/post/${dbPost.$id}`)
+      }
     }
+    }
+   
   }
+
+  //Function for creating slug value 
+   
+  const slugTransform = useCallback((value)=>{
+      if(value && typeof value === "string")
+        return value
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-zA-Z\d\s]+/g,"-")
+      .replace(/\s/g,"-");
+
+      return "";
+
+  },[]);
+
+  React.useEffect(()=>{
+
+  },[watch,setValue,slugTransform])
 
   return (
     //form, then create 2 sections in it vertically. One for title input, slug input & Editor with width 2/3
