@@ -4,11 +4,11 @@ import React, { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import {Button, Input, Select} from '../index'
+import { Button, Input, Select } from "../index";
 import service from "../../appwrite/config";
 // import store from '../../store/store'
 
-export default function PostForm({post}) {
+export default function PostForm({ post }) {
   // we'll get a post prop which user will provide
 
   //2 define all the variables using hooks that we imported: useForm, useNavigate, useSelector
@@ -89,13 +89,13 @@ export default function PostForm({post}) {
   }, []);
 
   React.useEffect(() => {
-    const subscription = watch((value,{name})=>{
-      if(name==="title"){
-        setValue("slug", slugTransform(value.title),{shouldValidate: true} )
+    const subscription = watch((value, { name }) => {
+      if (name === "title") {
+        setValue("slug", slugTransform(value.title), { shouldValidate: true });
       }
     });
 
-    return ()=>subscription.unsubscribe(); 
+    return () => subscription.unsubscribe();
   }, [watch, setValue, slugTransform]);
 
   return (
@@ -103,43 +103,79 @@ export default function PostForm({post}) {
     // other one for featuredImage input, status select dropdown & submit Button with width 1/3
     <form>
       <div className="w-2/3 px-2">
-      {/* Input for title */}
-        <Input 
+        {/* Input for title */}
+        <Input
           label="Title :"
           placeholder="Title"
           className="mb-4"
-          {...register("title",{required:true})}
+          {...register("title", { required: true })}
         />
-        
 
         {/* Input for Slug */}
         <Input
-        label="Slug:"
-        placeholder="Slug"
-        className="mb-4"
-        {...register("slug",{required:true})}
-         />
-
+          label="Slug:"
+          placeholder="Slug"
+          className="mb-4"
+          {...register("slug", { required: true })}
+          // onInput={(e) => {
+          //   setValue("slug", slugTransform(e.currentTarget.value), {
+          //     shouldValidate: true,
+          //   });
+          // }}
+        />
 
         {/* Rich Text Editor */}
-        <RTE 
+        <RTE
           name="content"
           control={control}
-          label="Content :" 
+          label="Content :"
           defaultValue={getValues("content")}
         />
       </div>
+
+      {/* 2ND DIV WITH WIDTH 1/3 */}
+
       <div className="w-1/3 px-2">
-        <Input />
-        <Select />
-        <Button type="submit" className="w-full">
+        {/* Input for Image file */}
+        <Input
+          label="Featured Image :"
+          className="mb-4"
+          accept="image/png, image/jpg, image/jpeg, image/gif"
+          type="file"
+          {...register("image", { required: !post })}
+        />
+
+        {/* Preview for Images */}
+        {post && (
+          <div className="w-full mb-4">
+            <img
+              src={service.getFilePreview(post.featuredImage)}
+              alt={post.title}
+              className="rounded-lg"
+            />
+          </div>
+        )}
+
+        {/* SELECT (DROPDOWN MENU) FOR STATUS */}
+        <Select
+          options={["active", "inactive"]}
+          label="Status :"
+          className="mb-4"
+          {...register("status", { required: true })}
+        />
+
+        {/* UPDATE OR SUBMIT BUTTON */}
+        <Button
+          type="submit"
+          bgColor={post ? "bg-green-500" : undefined}
+          className="w-full"
+        >
           {post ? "Update" : "Submit"}
         </Button>
       </div>
     </form>
   );
 }
-
 
 
 

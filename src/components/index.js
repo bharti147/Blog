@@ -8,6 +8,8 @@ import PostCard from "./PostCard";
 import Input from "./Input";
 import RTE from "./RTE";
 import Button from "./Button";
+import Login from '../components/Login'
+import SignUp from '../components/SignUp'
 
 export {
     Header,
@@ -19,6 +21,8 @@ export {
     RTE,
     Input,
     Select,
-    PostCard
+    PostCard,
+    Login,
+    SignUp
 
 }
