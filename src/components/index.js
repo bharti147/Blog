@@ -10,6 +10,7 @@ import RTE from "./RTE";
 import Button from "./Button";
 import Login from '../components/Login'
 import SignUp from '../components/SignUp'
+import PostForm from './post-form/PostForm'
 
 export {
     Header,
@@ -23,6 +24,8 @@ export {
     Select,
     PostCard,
     Login,
-    SignUp
+    SignUp,
+    PostForm
+
 
 }
