@@ -21,7 +21,7 @@ export class Service{
                try{
                 return await this.databases.createDocument(
                     conf.appwriteDatabaseId,
-                    conf.appwriteCollectionId,
+                    conf.appwriteCollectionId, 
                     slug,
                     {
                         title,
