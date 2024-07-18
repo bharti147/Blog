@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import service from "../appwrite/config";
-import { Container } from "postcss";
-import { PostCard } from "../components";
+
+import { PostCard , Container} from "../components";
+
+//allpost logic - we have to render all the posts here, so we'll make a posts state to render all the posts using appwrite and we'll map that posts array to render each post by passing it as a prop to postcard.
 
 function AllPosts() {
   const [posts, setPosts] = useState([]);
@@ -30,3 +32,6 @@ function AllPosts() {
 }
 
 export default AllPosts;
+
+
+

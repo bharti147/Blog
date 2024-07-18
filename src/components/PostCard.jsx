@@ -2,6 +2,8 @@ import React from 'react'
 import service from '../appwrite/config'
 import {Link} from 'react-router-dom'
 
+//postcards are small cards to show post in preview form, the whole post will be shown by post component/page
+
 function PostCard({$id, featuredImage, title}) {
   return (
     <Link to= {`/post/${$id}`}>
