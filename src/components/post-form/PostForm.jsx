@@ -53,23 +53,24 @@ export default function PostForm({ post }) {
     }
     // creation code (if post is not available, then we'll create a new post)
     else {
-      const file = data.image[0]
-        ? await service.uploadFile(data.image[0])
-        : null;
+      const file =  await service.uploadFile(data.image[0]);
 
       //file upload done,but we'll need this image id for create account method.
       if (file) {
         // if file is uploaded correctly
         const fileId = file.$id;
+        console.log(fileId,"FILEID")
         data.featuredImage = fileId;
-
+        console.log(data.featuredImage,"Featuredimage")
         const dbPost = await service.createPost({
           ...data,
-          userId: userData.$id,
+          userid: userData.$id,
         });
-
+console.log(data,"data")
+console.log(dbPost,"created post")
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
+      
         }
       }
     }
@@ -101,7 +102,7 @@ export default function PostForm({ post }) {
   return (
     //form, then create 2 sections in it vertically. One for title input, slug input & Editor with width 2/3
     // other one for featuredImage input, status select dropdown & submit Button with width 1/3
-    <form>
+    <form onSubmit={handleSubmit(submit)}>
       <div className="w-2/3 px-2">
         {/* Input for title */}
         <Input

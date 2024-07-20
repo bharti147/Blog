@@ -17,18 +17,19 @@ export class Service{
         this.bucket = new Storage(this.client);
     }
 
-        async createPost({title, slug, content, featuredImage, status, userId}){
+        async createPost({title, slug, content, featuredImage, status, userid}){
                try{
                 return await this.databases.createDocument(
                     conf.appwriteDatabaseId,
-                    conf.appwriteCollectionId, 
+                    conf.appwriteCollectionId,
                     slug,
                     {
                         title,
+                        
                         content,
                         featuredImage,
                         status,
-                        userId
+                        userid
                     }
                 )
                }
@@ -129,6 +130,10 @@ export class Service{
         }
         
         getFilePreview(fileId){
+            if (!fileId) {
+                console.log("Error: Missing fileId");
+                return "";
+              }
           return this.bucket.getFilePreview(
             conf.appwriteBucketId,
             fileId
