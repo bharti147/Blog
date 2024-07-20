@@ -1,9 +1,10 @@
 import React,{useState} from 'react'
-import {authLogin as login} from '../store/authSlice'
+import {login} from '../store/authSlice'
 import { useForm } from 'react-hook-form'
 import {Link, useNavigate} from 'react-router-dom'
 import authService from '../appwrite/auth'
 import { useDispatch } from 'react-redux'
+import {Logo,Input,Button} from './index'
 
 function SignUp() {
     const[error,setError]=useState("")
@@ -15,6 +16,7 @@ function SignUp() {
         setError("")
         try{
             const userData = await authService.createAccount(data)
+            console.log(userData)
             if(userData){
                 const userData = await authService.getCurrentUser()
                 if(userData){
@@ -66,8 +68,8 @@ function SignUp() {
             <Input
                 label="Password: "
                 type="password"
-                placeholder = "Enter your full name"
-                {...register("name",{
+                placeholder = "Enter your password"
+                {...register("password",{
                     required:true
                 })}
             />

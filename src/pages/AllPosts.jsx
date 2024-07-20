@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import service from "../appwrite/config";
+import appwriteService from "../appwrite/config";
 
 import { PostCard , Container} from "../components";
 
@@ -8,13 +8,23 @@ import { PostCard , Container} from "../components";
 function AllPosts() {
   const [posts, setPosts] = useState([]);
 
+  // useEffect(() => {
+  //   service.getPosts([]).then((posts) => {
+  //     if (posts) {
+  //       setPosts(posts.documents);
+  //       console.log(posts.documents)
+  //     }
+  //   });
+  // }, []);
   useEffect(() => {
-    service.getPosts([]).then((posts) => {
+
+    appwriteService.getPosts().then((posts) => {
       if (posts) {
-        setPosts(posts.documents);
+          setPosts(posts.documents)
       }
-    });
-  }, []);
+  })
+  }, [])
+
 
   return (
     <div className="w-full py-8">

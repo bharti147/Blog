@@ -5,6 +5,7 @@ import {login as authLogin } from '../store/authSlice' //from store
 import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import Button from './Button'
+import {Logo,Input} from './index'
 
 function Login() {
 const [error,setError]= useState("")

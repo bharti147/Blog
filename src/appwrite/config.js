@@ -1,6 +1,6 @@
 // for database services
 import {Client, ID, Databases, Storage, Query} from "appwrite";
-import conf from '../conf/conf.js'
+import conf from '../conf/conf'
 
 export class Service{
    
@@ -95,7 +95,7 @@ export class Service{
                 )
             }
             catch(error){
-                console.log("Appwrite serive :: getPosts :: error", error);
+                console.log("Appwrite service :: getPosts :: error", error);
             }
         }
 
