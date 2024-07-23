@@ -18,13 +18,18 @@ function Post() {
 
   const userData = useSelector((state)=>state.auth.userData)
 
-  const isAuthor = post && userData ? post.userId === userData.$id : false;
+  const isAuthor = post && userData ? post.userid === userData.$id : false;
+
 
   useEffect(() => {
     if (slug) {
-      service.getPost().then((post) => {
+      service.getPost(slug).then((post) => {
         if (post) {
           setPost(post);
+          console.log(isAuthor,"author")
+          console.log(post.userid,"post id")
+          console.log(userData.$id,"user id")
+          console.log(post.$id,"user id")
         } else navigate("/");
       });
     }
@@ -67,7 +72,7 @@ function Post() {
         )}
 
         <div className="w-full mb-6">
-          <h1 className="text-2xl font-bold">Title</h1>
+          <h1 className="text-2xl font-bold">{post.title}</h1>
         </div>
 
         <div className="browser.css">{parse(post.content)}</div>

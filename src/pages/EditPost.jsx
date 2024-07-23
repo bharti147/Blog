@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import { PostForm,Container } from '../components'
 import { useNavigate, useParams } from 'react-router-dom'
 import service from '../appwrite/config'
@@ -18,6 +18,7 @@ function EditPost() {
       service.getPost(slug).then((post)=>{
         if(post){
           setPost(post)
+          console.log(slug,post.$id,"slug")
         }
       })
     }

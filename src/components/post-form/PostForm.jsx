@@ -45,7 +45,8 @@ export default function PostForm({ post }) {
       const dbPost = await service.updatePost(post.$id, {
         ...data,
         featuredImage: file ? file.$id : undefined,
-      });
+      }); 
+      
 
       if (dbPost) {
         navigate(`/post/${dbPost.$id}`);
@@ -103,7 +104,7 @@ console.log(dbPost,"created post")
   return (
     //form, then create 2 sections in it vertically. One for title input, slug input & Editor with width 2/3
     // other one for featuredImage input, status select dropdown & submit Button with width 1/3
-    <form onSubmit={handleSubmit(submit)}>
+    <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
       <div className="w-2/3 px-2">
         {/* Input for title */}
         <Input
