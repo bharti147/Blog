@@ -62,6 +62,7 @@ export default function PostForm({ post }) {
         console.log(fileId,"FILEID")
         data.featuredImage = fileId;
         console.log(data.featuredImage,"Featuredimage")
+        console.log(userData,"userdata")
         const dbPost = await service.createPost({
           ...data,
           userid: userData.$id,
